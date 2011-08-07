@@ -1,0 +1,58 @@
+<project name="BitCoin-Arbitrage" default="" basedir=".">
+    <property name="bca.src" value="src" />
+    <property name="bca.dist" value="dist" />
+    <property name="bca.lib" value="lib" />
+    <property name="bca.config" value="config" />
+    <property name="bca.logProps" value="${bca.config}/log.props" />
+    
+    <path id="bca.classpath">
+        <pathelement location="${bca.dist}" />
+        <fileset dir="${bca.lib}">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <target name="clean" depends="">
+        <delete dir="${bca.dist}" />
+    </target>
+
+    <target name="prepare" depends="clean">
+        <mkdir dir="${bca.dist}" />
+    </target>
+
+    <target name="build" depends="prepare">
+        <javac
+            srcdir="${bca.src}"
+            destdir="${bca.dist}"
+            classpathref="bca.classpath"
+            debug="on"
+            includeantruntime="false" 
+         />
+    </target>
+
+    <macrodef name="runjava">
+        <attribute name="classname" description="classname of the build to run" />
+        <attribute name="classpath" description="classpath of the build to run" />
+        <attribute name="run-arg1" default="" description="java run args" />
+        <attribute name="log-=props" default="" description="path to the logging.properties file" />
+        
+        <sequential>
+            <java classname="@{classname}" classpathref="@{classpath}">
+                <sysproperty key="java.util.logging.config.file" value="@{log-props}" />
+                <arg value="@{run-arg1}" />
+            </java>
+        </sequential>
+    </macrodef> 
+
+    <target name="build-run" depends="build">
+        <antcall target="run" />
+    </target>
+
+    <target name="run">
+        <runjava 
+            classname="${bca.mainClass}"
+            classpath="bca.classpath"
+            log-props="$bca.logProps"
+        /> 
+    </target>
+</project>
