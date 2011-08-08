@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <bca>
   <exchanges>
-    <exchange name="mtGox">
-      <ticker url="http://mtgox.com/api/0/data/ticker.php" />
-    </exchange>
-    <exchange name="TradeHill">
-      <ticker url="https://api.tradehill.com/APIv1/USD/Ticker" />
     <exchange>
+      <name>mtGox</name>
+      <ticker-url>http://mtgox.com/api/0/data/ticker.php</ticker-url>
+    </exchange>
+    <exchange>
+      <name>TradeHill</name>
+      <ticker-url>https://api.tradehill.com/APIv1/USD/Ticker</ticker-url>
+    </exchange>
   </exchanges>
+  <settings>
+    <tracker-hit-rate>1000</tracker-hit-rate>
+  </settings>
 </bca>
