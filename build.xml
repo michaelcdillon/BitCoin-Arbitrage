@@ -3,7 +3,8 @@
     <property name="bca.dist" value="dist" />
     <property name="bca.lib" value="lib" />
     <property name="bca.config" value="config" />
-    <property name="bca.logProps" value="${bca.config}/log.props" />
+    <property name="bca.logProps" value="${bca.config}/log.properties" />
+    <property name="bca.mainClass" value="org.bca.Main" />
     
     <path id="bca.classpath">
         <pathelement location="${bca.dist}" />
@@ -34,7 +35,7 @@
         <attribute name="classname" description="classname of the build to run" />
         <attribute name="classpath" description="classpath of the build to run" />
         <attribute name="run-arg1" default="" description="java run args" />
-        <attribute name="log-=props" default="" description="path to the logging.properties file" />
+        <attribute name="log-props" default="" description="path to the logging.properties file" />
         
         <sequential>
             <java classname="@{classname}" classpathref="@{classpath}">
@@ -52,7 +53,7 @@
         <runjava 
             classname="${bca.mainClass}"
             classpath="bca.classpath"
-            log-props="$bca.logProps"
+            log-props="${bca.logProps}"
         /> 
     </target>
 </project>
