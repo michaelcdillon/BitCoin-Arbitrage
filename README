@@ -1,3 +1,13 @@
 BitCoin Arbitrage
 
+------------------------------------------------------------------------
+
 Project for finding BC arbitrage oppurtunities and then expoilting them.
+
+------------------------------------------------------------------------
+Instructions:
+
+    1. Edit confing/bca.config and place the exchange websites you want
+       to use in the proper formatting.
+    
+    2. execute 'ant build-run'
