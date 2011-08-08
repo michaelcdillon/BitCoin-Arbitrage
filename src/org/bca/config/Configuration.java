@@ -42,18 +42,21 @@ public class Configuration {
     public ArrayList<Exchange> getExchanges () {
         ArrayList<Exchange>       exchanges     = new ArrayList<Exchange> (); 
         List                      exchanges_xml = config.configurationsAt (EXCHANGE_KEY);
+        Exchange                  exchange      = null;
         HierarchicalConfiguration exchange_xml  = null;
         String                    name          = null;
         String                    ticker_url    = null;
-
+  
         for (Iterator it = exchanges_xml.iterator (); it.hasNext ();) {
             exchange_xml = (HierarchicalConfiguration) it.next();
             
             name = exchange_xml.getString (NAME_KEY);
             ticker_url = exchange_xml.getString (TICKER_KEY);
-            
-            exchanges.add (new Exchange (name, ticker_url));
+            exchange = new Exchange (name, ticker_url);    
+            exchanges.add (exchange);
         }
+
+        log.info (exchanges.toString ());
 
         return exchanges;
     }

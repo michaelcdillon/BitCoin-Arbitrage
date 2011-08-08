@@ -20,7 +20,16 @@ public class Arbitrage {
         
         setSettings (settings); 
 
-        log.info ("Arbitrage setup: " + this.tracker_hit_rate);
+        run ();
+    }
+
+    private void run () {
+        for (Exchange exchange : this.exchanges) {
+            MarketWatcher mw = new MarketWatcher (exchange);
+            mw.run ();    
+            log.info (exchange.toString ());
+        } 
+
     }
 
     private void setSettings (HashMap<String, String> settings) {
