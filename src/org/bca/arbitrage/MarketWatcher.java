@@ -7,18 +7,29 @@ import org.json.JSONObject;
 
 import java.util.logging.Logger;
 
-public class MarketWatcher {
+public class MarketWatcher extends Thread {
 
     private static Logger log = Logger.getLogger (MarketWatcher.class.getName ());
 
     private Exchange exchange;
 
-    public MarketWatcher (Exchange exchange) {
+    private long      update_rate;
+
+    public MarketWatcher (Exchange exchange, long update_rate) {
         this.exchange = exchange;
+        this.update_rate = update_rate;
     }
 
     public void run () {
-        updateTrackerExchangeData ();
+        while (true) {
+            updateTrackerExchangeData ();
+            try {
+                sleep (this.update_rate);
+            }
+            catch (InterruptedException e) {
+                log.fine ("This marketwatcher thread was interrupted while sleeping"); 
+            }
+        }
     }
 
     private void updateTrackerExchangeData () {
@@ -51,5 +62,7 @@ public class MarketWatcher {
         catch (Exception e) {
             log.warning ("An error occured while parsing tracker data : buy");
         }
+
+        log.info (exchange.toString ());
     }
 }

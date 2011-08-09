@@ -12,36 +12,36 @@ public class Arbitrage {
     private static Logger log = Logger.getLogger (Arbitrage.class.getName ());
     
     private ArrayList<Exchange> exchanges;
-    
-    private int                 tracker_hit_rate;
+
+    private MWManager           market_watcher_manager = null;
     
     public Arbitrage (ArrayList<Exchange> exchanges, HashMap<String, String> settings) {
         this.exchanges = exchanges;
         
         setSettings (settings); 
+        
+        market_watcher_manager = new MWManager (exchanges, settings);
 
         run ();
     }
 
     private void run () {
-        for (Exchange exchange : this.exchanges) {
-            MarketWatcher mw = new MarketWatcher (exchange);
-            mw.run ();    
-            log.info (exchange.toString ());
-        } 
+        while (true) {
 
+        }
     }
 
     private void setSettings (HashMap<String, String> settings) {
-        String tracker_hit_rate_str = settings.get (Configuration.TRACKER_HIT_RATE_KEY);
+    /*    String ticker_hit_rate_str = settings.get (Configuration.TICKER_HIT_RATE_KEY);
         
-        if (tracker_hit_rate_str != null) {
+        if (ticker_hit_rate_str != null) {
             try {
-              this.tracker_hit_rate = Integer.parseInt (tracker_hit_rate_str); 
+              this.ticker_hit_rate = Integer.parseInt (ticker_hit_rate_str); 
             }
             catch (Exception e) {
-              log.severe ("Couldn't parse the tracker hit rate setting");
+              log.severe ("Couldn't parse the ticker hit rate setting");
             }
         }
+     */
     }
 }

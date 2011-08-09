@@ -4,8 +4,8 @@ import java.util.logging.Logger;
 
 public class Exchange {
     
-    private static String name;
-    private static String ticker_url;
+    private String name;
+    private String ticker_url;
 
     private float         sell;
     private float         buy;

@@ -3,7 +3,7 @@
   <exchanges>
     <exchange>
       <name>mtGox</name>
-      <ticker-url>http://mtgox.com/api/0/data/ticker.php</ticker-url>
+      <ticker-url>https://mtgox.com/api/0/data/ticker.php</ticker-url>
     </exchange>
     <exchange>
       <name>TradeHill</name>
@@ -11,6 +11,6 @@
     </exchange>
   </exchanges>
   <settings>
-    <tracker-hit-rate>1000</tracker-hit-rate>
+    <tracker-hit-rate>3000</tracker-hit-rate>
   </settings>
 </bca>

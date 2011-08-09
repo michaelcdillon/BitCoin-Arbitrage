@@ -24,7 +24,7 @@ public class Configuration {
     private static final String NAME_KEY     = "name";
     private static final String TICKER_KEY   = "ticker-url";
 
-    public  static final String TRACKER_HIT_RATE_KEY = "settings.tracker-hit-rate";
+    public  static final String TICKER_HIT_RATE_KEY = "settings.tracker-hit-rate";
         
     private XMLConfiguration config;
          
@@ -42,21 +42,19 @@ public class Configuration {
     public ArrayList<Exchange> getExchanges () {
         ArrayList<Exchange>       exchanges     = new ArrayList<Exchange> (); 
         List                      exchanges_xml = config.configurationsAt (EXCHANGE_KEY);
-        Exchange                  exchange      = null;
+        Exchange                  new_exchange  = null;
         HierarchicalConfiguration exchange_xml  = null;
         String                    name          = null;
         String                    ticker_url    = null;
-  
-        for (Iterator it = exchanges_xml.iterator (); it.hasNext ();) {
-            exchange_xml = (HierarchicalConfiguration) it.next();
-            
+
+        for (Object configuration : exchanges_xml) {
+            exchange_xml = (HierarchicalConfiguration) configuration;
             name = exchange_xml.getString (NAME_KEY);
             ticker_url = exchange_xml.getString (TICKER_KEY);
-            exchange = new Exchange (name, ticker_url);    
-            exchanges.add (exchange);
+            new_exchange = new Exchange (name, ticker_url);    
+            exchanges.add (new_exchange);
         }
-
-        log.info (exchanges.toString ());
+        
 
         return exchanges;
     }
@@ -64,9 +62,9 @@ public class Configuration {
     public HashMap<String, String> getSettings () {
         HashMap<String, String> settings = new HashMap<String, String> ();
         
-        String tracker_hit_rate = config.getString (TRACKER_HIT_RATE_KEY); 
-        if (tracker_hit_rate != null)
-            settings.put (TRACKER_HIT_RATE_KEY, tracker_hit_rate);
+        String ticker_hit_rate = config.getString (TICKER_HIT_RATE_KEY); 
+        if (ticker_hit_rate != null)
+            settings.put (TICKER_HIT_RATE_KEY, ticker_hit_rate);
         
         return settings;
     }

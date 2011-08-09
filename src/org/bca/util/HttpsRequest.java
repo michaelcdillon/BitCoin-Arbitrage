@@ -23,7 +23,8 @@ public class HttpsRequest {
     }
 
     private static String request (String method, String path) {
-        StringBuilder data = new StringBuilder ();
+        int           respCode = 0;
+        StringBuilder data     = new StringBuilder ();
 
         try { 
             URL url = new URL (path); 
@@ -34,8 +35,12 @@ public class HttpsRequest {
             connection.setRequestMethod (method); 
             connection.setFollowRedirects (true); 
             
-            log.fine ("Resp Code:"+connection.getResponseCode ()); 
-
+            respCode = connection.getResponseCode (); 
+            log.fine ("Resp Code:" + respCode); 
+            
+            if (respCode != 200)
+                return null;
+             
             DataInputStream input = new DataInputStream (connection.getInputStream ()); 
             for (int c = input.read (); c != -1; c = input.read ()) 
                 data.append ((char) c);
@@ -47,7 +52,6 @@ public class HttpsRequest {
         catch (Exception e)  { 
             log.warning ("An issue occured while fetching the url: " + path); 
             log.warning (e.toString ()); 
-            e.printStackTrace (); 
             return null;
         } 
     }
